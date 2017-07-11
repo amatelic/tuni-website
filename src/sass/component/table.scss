@@ -1,0 +1,41 @@
+.table {
+
+}
+
+.table-body,
+.table-header {
+  width: 100%;
+  height: auto;
+  display: flex;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.5);
+}
+
+.table-header {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.table-body {
+  display: block;
+  flex-direction: column;
+  height: 300px;
+  overflow-y: scroll;
+}
+
+.table-body .row {
+  width: 100%;
+  height: 35px;
+  display: flex;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.5);
+}
+
+.table-header span,
+.table-body .row > div {
+  padding: 5px;
+  width: 100px;
+  height: 35px;
+  border-right: 2px solid rgba(0, 0, 0, 0.5);
+}
+
+.table-body .row > div:hover {
+  background: rgba(0, 0, 0, 0.2);
+}

@@ -1,0 +1,63 @@
+
+html,
+body {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    margin: 0px;
+    box-sizing: border-box;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: 'Oswald', sans-serif;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+#app,
+main {
+  width: 100vw;
+  height: 100vh;
+}
+
+
+main {
+  display: flex;
+  justify-content: flex-start;
+  background: #DD5E89;
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(#F7BB97, #DD5E89);
+  background: -moz-linear-gradient(#F7BB97, #DD5E89);
+  background: -o-linear-gradient(#F7BB97, #DD5E89);
+  background: linear-gradient(#F7BB97, #DD5E89);
+}
+
+h1,h2,h3,h4,h5,h6,p,a {
+    margin: 0px;
+}
+
+.content {
+  width: 100%;
+  height: auto;
+  display: flex;
+  overflow-y: scroll;
+}
+
+
+.card {
+  width: 80%;
+  height: auto;
+  padding: 2.5%;
+  margin: 10%;
+  background: rgba(245, 242, 240, 0.9);
+  box-shadow: 2px 2px 15px 2px rgba(0, 0, 0, 0.2)
+}
+
+@import 'helpers.scss';
+@import 'intro.scss';
+@import 'app.scss';
+@import 'component/navbar.scss';
+@import 'component/table.scss';
+// @import '../components/home/home';

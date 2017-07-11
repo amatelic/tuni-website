@@ -1,0 +1,12 @@
+<div class="table">
+<div class="table-header">
+  <span></span>
+  <span v-for="item of header">{{item}}</span>
+</div>
+<div class="table-body">
+  <div  class="row" v-for="(row, index) in body">
+    <div>{{ index + 1 }}</div>
+    <div v-for="col in row">{{col}}</div>
+  </div>
+</div>
+</div>
