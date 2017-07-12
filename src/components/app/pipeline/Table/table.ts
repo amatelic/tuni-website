@@ -65,7 +65,6 @@ export class TableComponent extends Vue {
 
   selectedFilter(e, filter: ITag) {
     e.preventDefault();
-    console.log(filter)
     this.filter = filter.callback;
   }
 
@@ -73,5 +72,19 @@ export class TableComponent extends Vue {
     e.stopPropagation();
     this.tags = filter(this.tags, filterByIndex(index));
     this.filter = () => true;
+  }
+
+  getColumnInforamtion(index: number) {
+    const header = this.collection.header;
+    const props = this.collection.body.reduce((obj, values) => {
+      const value = values[index];
+      if (!obj[value]) {
+        obj[value] = 0;
+      }
+      obj[value]++;
+      return obj;
+    }, {});
+
+    console.log(props);
   }
 }
