@@ -1,12 +1,23 @@
 <div class="table">
-<div class="table-header">
-  <span></span>
-  <span v-for="item of header">{{item}}</span>
-</div>
-<div class="table-body">
-  <div  class="row" v-for="(row, index) in body">
-    <div>{{ index + 1 }}</div>
-    <div v-for="col in row">{{col}}</div>
+  <div class="table-config">
+    <p>Add filter:<input @change="addFilter($event)" type="" name="" value=""></p>
+    <div class="tags">
+      <div class="tag"
+        @click="selectedFilter($event, tag)"
+        v-for="(tag, index) in tags">
+          {{tag.name }}
+          <span @click="removeTag($event, index)">X</span>
+      </div>
+    </div>
   </div>
-</div>
-</div>
+  <div class="table-header">
+    <span>Index</span>
+    <span v-for="item of header">{{item}}</span>
+  </div>
+  <div class="table-body">
+    <div  class="row" v-for="(row, index) in body">
+      <div>{{ index + 1 }}</div>
+      <div v-for="col in row">{{col}}</div>
+    </div>
+  </div>
+  </div>

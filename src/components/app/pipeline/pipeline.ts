@@ -3,6 +3,7 @@ import Component from 'vue-class-component';
 import  axios from 'axios';
 import { ImportComponent } from './Import/import';
 import { TableComponent } from './Table/table';
+
 @Component({
     template: require('./pipeline.html'),
     components: {
@@ -17,8 +18,8 @@ export class PipelineComponent extends Vue {
 
   data() {
     return {
-      collection: undefined
-    }
+      collection: undefined,
+    };
   }
   receive(data) {
     console.log(data);
