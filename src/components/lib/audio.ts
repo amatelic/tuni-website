@@ -1,4 +1,6 @@
-import { notes } from './notes';
+ import { notes } from './notes';
+ export { notes } from './notes';
+
 
 interface SoundTrack {
   note: number;
@@ -60,65 +62,30 @@ export class Sound {
     );
   }
 
-  sound(tracks: Array<SoundTrack>) {
-    // this.oscillator.start(0);
-    let prev: SoundTrack = { note: 0, time: 0 };
-    for (let track of tracks) {
-      const oscillator = this.context.createOscillator();
-      oscillator.frequency.value = track.note;
-      oscillator.connect(this.context.destination);
-      oscillator.start(this.currentTime + prev.time);
-      oscillator.stop(this.currentTime + track.time);
-      prev = track;
-    }
-
-  }
-
   get currentTime() {
     return this.context.currentTime;
   }
 
-  public playNotes(sound: SoundTrack) {
-    this.oscillator.frequency.value = sound.note;
-    this.gain.gain.setValueAtTime(1, this.currentTime);
+  sound(tracks: Array<SoundTrack>) {
+    // this.oscillator.start(0);
+    let prev: SoundTrack = { note: 0, time: 0 };
+    for (let track of tracks) {
+      const gain = this.context.createGain();
+      const oscillator = this.context.createOscillator();
+      oscillator.connect(gain);
 
-    this.gain.gain.exponentialRampToValueAtTime(0.001, sound.time + 1);
-    // this.oscillator.stop(sound.time + 1);
-    // this.stopNotes(sound.time);
+      oscillator.frequency.value = track.note;
+      gain.connect(this.context.destination);
+      oscillator.start(this.currentTime + prev.time);
+      gain.gain.exponentialRampToValueAtTime(
+        1, this.currentTime + prev.time
+      );
+      oscillator.stop(this.currentTime + track.time);
+      gain.gain.exponentialRampToValueAtTime(
+        0.00001, this.currentTime + track.time
+      );
+      prev = track;
+    }
+
   }
-
-  public stopNotes(time) {
-    this.gain.gain.exponentialRampToValueAtTime(0.001, time + 0.5);
-    this.oscillator.stop(time + 0.5);
-  }
-}
-
-function generatRandomNote(notes: any): () => number {
- const notesArray = Object.keys(notes);
- return (note?: string) => {
-  const soundRandom = Math.round(Math.random() * notesArray.length);
-  return notes[note || notesArray[soundRandom]];
- };
-}
-
-export function soundTest() {
-  const sound = new Sound();
-  const generateNote = generatRandomNote(notes);
-
-  sound.sound([
-    { note: 293.66, time: 0.5 },
-    { note: 329.63, time: 1 },
-    { note: 349.23, time: 1.5 },
-    { note: 392.00, time: 2 },
-    { note: 440.00, time: 2.5 },
-    { note: 493.88, time: 3 },
-    { note: 523.25, time: 3.5 },
-    { note: 293.66, time: 4. },
-    { note: 329.63, time: 4.5 },
-    { note: 349.23, time: 5 },
-    { note: 392.00, time: 5.5 },
-    { note: 440.00, time: 6 },
-    { note: 493.88, time: 6.5 },
-    { note: 523.25, time: 7 },
-  ]);
 }

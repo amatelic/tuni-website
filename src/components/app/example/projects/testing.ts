@@ -2,7 +2,7 @@ import * as netaptic from 'neataptic';
 const  { Neat, methods, Config, architect, Network, Node } = netaptic;
 // Text to learn
 
-let text = `this is only a basic test to see if i am right. Or is this a basic test to se if i am wrong. Who nows. That's the big question`;
+let text = `this is question`;
 
 text = text.toLowerCase();
 let characters = text.split('').filter(function(item, i, ar){ return ar.indexOf(item) === i; });
@@ -30,7 +30,7 @@ for(let i = 1 ; i < text.length; i++){
   previous = next;
 }
 
-export function testing() {
+export function TextTesting() {
   console.log(characters);
   console.log(onehot);
   writeSentence();
@@ -44,9 +44,10 @@ function writeSentence() {
   let sum = '';
   let output = network.activate(dataSet[0].input);
   console.log(`Output: ${output}`);
-  for (let i = 0; i < 100; i++){
+  for (let i = 0; i < 1; i++){
     let max = Math.max.apply(null, output);
     let index = output.indexOf(max);
+    console.log(max, index, output)
 
     let zeros = Array.apply(null, Array(characters.length)).map(Number.prototype.valueOf, 0);
     zeros[index] = 1;
