@@ -16,8 +16,18 @@
   </div>
   <div class="table-body">
     <div  class="row" v-for="(row, index) in body">
-      <div>{{ index + 1 }}</div>
-      <div v-for="col in row">{{col}}</div>
+      <div @contextmenu.prevent="$refs.ctxMenu.open($event, index)">{{ index + 1 }}</div>
+      <div @contextmenu.prevent="$refs.ctxMenu.open($event, index)" v-for="col in row">{{col}}</div>
     </div>
   </div>
-  </div>
+  <transition name="right">
+    <div v-if="data">
+      <component :data="data" @close="close($event)"class="table-info" v-bind:is="view"></component>
+    </div>
+  </transition>
+  <context-menu id="context-menu" @ctx-open="onCtxOpen" ref="ctxMenu">
+    <li @click="remove($event, index)">DELETE</li>
+  </context-menu>
+</div>
+
+

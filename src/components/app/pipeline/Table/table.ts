@@ -2,7 +2,9 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 import axios from 'axios';
 import { filter } from 'lodash';
+import contextMenu from 'vue-context-menu';
 import { filterByIndex } from '../../helpers';
+import { TableInfoComponent } from './table-info/table-info';
 
 type filterBool = (row: any[]) => boolean;
 
@@ -14,12 +16,19 @@ interface ITag {
 interface ITableData {
   tags: ITag[];
   filter: filterBool;
+  view: string;
+  data: any;
+
 }
 
-const isEqual = (value: any) => (rows: any[]) => rows.indexOf(value) !== -1
+const isEqual = (value: any) => (rows: any[]) => rows.indexOf(value) !== - 1;
 
 @Component({
     template: require('./table.html'),
+    components: {
+      'table-info': TableInfoComponent,
+      'contextMenu': contextMenu,
+    },
     props: {
       collection: {
         default: () => ({
@@ -38,7 +47,10 @@ export class TableComponent extends Vue {
   data(): ITableData {
     return {
       tags: [],
-      filter: () => true
+      filter: () => true,
+      view: 'table-info',
+      data: undefined,
+      modal: {},
     };
   }
 
@@ -85,6 +97,14 @@ export class TableComponent extends Vue {
       return obj;
     }, {});
 
-    console.log(props);
+    this.data = props;
+  }
+
+  close(event) {
+    this.data = event;
+  }
+
+  remove() {
+    console.log(arguments);
   }
 }

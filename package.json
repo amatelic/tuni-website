@@ -36,6 +36,7 @@
     "lodash": "^4.17.4",
     "vue": "~2.2.4",
     "vue-class-component": "~5.0.0",
+    "vue-context-menu": "^2.0.4",
     "vue-property-decorator": "~4.0.0",
     "vue-router": "~2.3.0"
   },

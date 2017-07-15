@@ -1,5 +1,30 @@
 .table {
+  width: 80%;
+  min-height: 500px;
+  position: relative;
+  overflow: hidden;
+}
 
+.table-info {
+  width: 30%;
+  height: 100%;
+  display: block;
+  background: #c3b9b8;
+  padding: 15px 10px;
+  position: absolute;
+  box-sizing: border-box;
+  top: 0px;
+  right: 0px;
+  transform: translate(0px, 0px);
+
+}
+
+.right-enter-active, .right-leave-active {
+  transition: opacity 0.5s;
+}
+.right-enter, .right-leave-to, .right-leave-active {
+  // transform: translate(100%, 0px);
+  opacity: 0;
 }
 
 .table-config {
@@ -29,6 +54,10 @@
   background: rgba(0, 0, 0, 0.2);
 }
 
+.table-header span {
+  cursor: pointer;
+}
+
 .table-body {
   display: block;
   flex-direction: column;
@@ -52,5 +81,6 @@
 }
 
 .table-body .row > div:hover {
+  cursor: pointer;
   background: rgba(0, 0, 0, 0.2);
 }
