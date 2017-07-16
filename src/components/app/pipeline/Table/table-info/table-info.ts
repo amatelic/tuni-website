@@ -13,7 +13,7 @@ export class TableInfoComponent extends Vue {
       data: []
     };
   }
-  get items() {
+  get items(): string[] {
     return Object.keys(this.data).map(prop => {
       return `${prop} - ${this.data[prop]}`;
     });

@@ -1,4 +1,5 @@
 <div class="flex justify-start align-center column">
   <pipe-import  @data="receive($event)" class="card" />
-  <pipe-table  v-if="collection" :collection="collection"" class="card" />
+  <pipe-table  v-if="collection" :collection="collection" class="card" />
+  <pipe-ml  v-if="collection" :collection="collection" class="card"></pipe-ml>
 </div>

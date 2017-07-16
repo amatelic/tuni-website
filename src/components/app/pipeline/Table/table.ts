@@ -18,6 +18,7 @@ interface ITableData {
   filter: filterBool;
   view: string;
   data: any;
+  modal: any;
 
 }
 
@@ -102,6 +103,10 @@ export class TableComponent extends Vue {
 
   close(event) {
     this.data = event;
+  }
+
+  onCtxOpen() {
+
   }
 
   remove() {
