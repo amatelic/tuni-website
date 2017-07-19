@@ -1,5 +1,5 @@
 import * as netaptic from 'neataptic';
-import { Sound, notes } from '../../../lib/audio';
+import { Sound, notes } from '../../../../../lib/audio';
 const  { Neat, methods, Config, architect, Network, Node } = netaptic;
 
 function generatRandomNote(notes: any): () => number {

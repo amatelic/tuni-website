@@ -1,0 +1,17 @@
+.piano {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.note {
+  background: white;
+  width: 12%;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.note:active {
+  box-shadow: inset 0px 0px 1px 1px rgba(0, 0, 0, 0.5);
+}

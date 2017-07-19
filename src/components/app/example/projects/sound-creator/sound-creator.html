@@ -1,0 +1,12 @@
+<div class="card">
+  <div>
+    <button type="button">Record</button>
+    <button type="button">Generate</button>
+    <button type="button">Play</button>
+  </div>
+  <div class="notes piano flex">
+    <div v-on:keyup="playIndex(index)" @click="play(note.value)"class="note" v-for="let (note, index) in playingNotes">
+      {{note.name}}
+    </div>
+  </div>
+</div>

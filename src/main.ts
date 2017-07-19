@@ -5,6 +5,8 @@ import { IntroComponent } from './components/intro/intro';
 import { AppComponent } from './components/app/app';
 import { PipelineComponent } from './components/app/pipeline/pipeline';
 import { ExampleComponent } from './components/app/example/example';
+import { SoundCreatorComponent } from './components/app/example/projects/sound-creator/sound-creator';
+
 // register the plugin
 Vue.use(VueRouter);
 
@@ -26,3 +28,7 @@ new Vue({
   el: '#app',
   router: router,
 });
+
+
+Vue.component('sound-creator', SoundCreatorComponent);
+

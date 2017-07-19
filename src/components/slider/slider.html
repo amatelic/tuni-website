@@ -1,0 +1,27 @@
+<div class="slider">
+
+  <div class="slider-content">
+    <div class="slider-headers">
+      <span @click="filterBy(filter)" v-for="filter in filters">{{ filter }}</span>
+    </div>
+    <transition-group tag="div" class="slider-content" name="pop-in">
+      <div
+        @click="selectProject(item.component)"
+        v-bind:style="{ background: item.background }"
+        class="slider-item"
+        v-for="(item, index) in projects" :key="index"
+      >
+        <h3>{{ item.name }}</h3>
+        <p>{{ item.description }}</p>
+      </div>
+    </transition-group>
+
+  </div>
+
+  <transition name="fade" mode="out-in" appear>
+    <div v-if="activeComponent" class="slider-modal">
+      <div @click="remove" class="close-modal">X</div>
+      <component class="modal-card" v-bind:is="activeComponent"></component>
+   </div>
+  </transition>
+</div>
