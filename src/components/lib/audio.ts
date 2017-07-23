@@ -2,7 +2,7 @@
  export { notes } from './notes';
 
 
-interface SoundTrack {
+export interface SoundTrack {
   note: number;
   time: number;
 }
@@ -12,7 +12,7 @@ type soundTypes = 'sine' | 'square' | 'triangle' | 'sawtooth';
 export class Sound {
   context: AudioContext;
   oscillator:  OscillatorNode;
-  gain:  GainNode;
+  gainNode:  GainNode;
   config: {
     frequence: number,
     type: soundTypes,
@@ -20,13 +20,15 @@ export class Sound {
 
   constructor(parameters?: any) {
     this.context = new AudioContext();
-    this.config = {
-      frequence: 440,
-      type: 'sine'
-    };
+  }
+
+  setup() {
     this.oscillator = this.context.createOscillator();
-    this.gain = this.context.createGain();
-    this.connect();
+    this.gainNode = this.context.createGain();
+
+    this.oscillator.connect(this.gainNode);
+    this.gainNode.connect(this.context.destination);
+    this.oscillator.type = 'sine';
   }
 
   get freq() {
@@ -47,45 +49,19 @@ export class Sound {
     this.config.type = value;
   }
 
-  private connect() {
-    this.oscillator.connect(this.gain);
-    this.gain.connect(this.context.destination);
-  }
+  start(value) {
+    this.setup();
+    this.oscillator.frequency.value = value;
+    this.gainNode.gain.setValueAtTime(0, this.context.currentTime);
+    this.gainNode.gain.linearRampToValueAtTime(1, this.context.currentTime + 0.01);
 
-  start() {
-    this.oscillator.start(0);
+    this.oscillator.start(this.context.currentTime);
+    // this.start(this.context.currentTime);
   }
 
   stop() {
-    this.gain.gain.exponentialRampToValueAtTime(
-        0.00001, this.context.currentTime + 0.04
-    );
+    this.gainNode.gain.exponentialRampToValueAtTime(0.001, this.context.currentTime + 1);
+    this.oscillator.stop(this.context.currentTime + 1);
   }
 
-  get currentTime() {
-    return this.context.currentTime;
-  }
-
-  sound(tracks: Array<SoundTrack>) {
-    // this.oscillator.start(0);
-    let prev: SoundTrack = { note: 0, time: 0 };
-    for (let track of tracks) {
-      const gain = this.context.createGain();
-      const oscillator = this.context.createOscillator();
-      oscillator.connect(gain);
-
-      oscillator.frequency.value = track.note;
-      gain.connect(this.context.destination);
-      oscillator.start(this.currentTime + prev.time);
-      gain.gain.exponentialRampToValueAtTime(
-        1, this.currentTime + prev.time
-      );
-      oscillator.stop(this.currentTime + track.time);
-      gain.gain.exponentialRampToValueAtTime(
-        0.00001, this.currentTime + track.time
-      );
-      prev = track;
-    }
-
-  }
 }

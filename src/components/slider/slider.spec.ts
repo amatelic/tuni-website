@@ -1,12 +1,12 @@
 import { expect } from 'chai';
-import { NavbarComponent } from './navbar';
+import { SliderComponent } from './Slider';
 import { ComponentTest } from '../../util/component-test';
 
 describe('Home component', () => {
   let directiveTest: ComponentTest;
 
   beforeEach(() => {
-    directiveTest = new ComponentTest('<div><home></home></div>', { 'home': NavbarComponent });
+    directiveTest = new ComponentTest('<div><home></home></div>', { 'home': SliderComponent });
   });
 
   it('should render correct contents', async () => {

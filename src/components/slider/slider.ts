@@ -25,7 +25,6 @@ export class SliderComponent extends Vue {
     };
   }
 
-
   get projects(): any[] {
     return (!this.selectedFilter) ? this.items :
       this.items.filter(project => {
@@ -42,10 +41,6 @@ export class SliderComponent extends Vue {
   }
 
   filterBy(filter: string) {
-    if(filter === 'all') {
-      this.selectedFilter = '';
-    } else {
-      this.selectedFilter = filter;
-    }
+    this.selectedFilter =  (filter === 'all') ? '' : filter;
   }
 }

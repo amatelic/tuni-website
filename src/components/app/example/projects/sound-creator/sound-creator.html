@@ -1,12 +1,26 @@
 <div class="card">
   <div>
-    <button type="button">Record</button>
-    <button type="button">Generate</button>
+    <button @click="record()" type="button">Record</button>
+    <button @click="generate()" type="button">Generate</button>
     <button type="button">Play</button>
   </div>
-  <div class="notes piano flex">
-    <div v-on:keyup="playIndex(index)" @click="play(note.value)"class="note" v-for="let (note, index) in playingNotes">
+  <transition-group tag="div"  class="notes piano flex" name="slide-down">
+    <div
+      @click="play(note.value)"
+      :class="[(selectedIndex === index) ? 'isPressed' : '', 'note']"
+      v-for="let (note, index) in playingNotes"
+      :key="index">
       {{note.name}}
     </div>
+  </transition-group>
+
+
+  <div class="records">
+    <h2>Records:</h2>
+    <span
+      v-for="let (record, index) in records"
+      :key="index">
+      {{record.name}}
+    </span>
   </div>
 </div>
