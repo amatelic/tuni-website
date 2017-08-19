@@ -1,9 +1,9 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 import axios from 'axios';
-import { testing, randomGenerator } from './logic/audio-testing';
+import { testing, randomGenerator, randomByKeyboard } from './logic/audio-testing';
 import { Sound, notes } from '../../../../lib/audio';
-import { chunk } from 'lodash';
+import { chunk, size } from 'lodash';
 import Observer from '../../../../lib/Observer';
 import KeyEvents from '../../../../lib/KeyEvent';
 
@@ -58,13 +58,13 @@ export class SoundCreatorComponent extends Vue {
   }
 
   addToRecord() {
-    if (this.selectedIndex !== 9999) {
+    if (this.selectedIndex && this.selectedIndex !== 9999) {
+      console.log(this.selectedIndex);
       this.records.push(nn[this.index][this.selectedIndex]);
     }
   }
 
   selectKey(e) {
-    // this.observerRecords.fire();
     const key = keys[e.key];
     this.selectedIndex = key;
   }
@@ -87,10 +87,25 @@ export class SoundCreatorComponent extends Vue {
   }
 
   playSound(key) {
-    console.log( nn[this.index][key],  nn[this.index])
     const freq = nn[this.index][key].value;
     this.sound.start(freq);
     this.sound.stop();
+  }
+
+  useGenerated() {
+    if (size(this.records)) {
+      console.log('Fire generated notes');
+      const notes = randomByKeyboard(this.records);
+      console.log(getDistribution(notes));
+      for (let i = 0; i < notes.length; i++) {
+      setTimeout(_ => {
+        this.sound.start(notes[i].note);
+        this.sound.stop();
+      }, i * 500);
+    }
+    } else {
+      console.log('Records are empty');
+    }
   }
 
   generate() {

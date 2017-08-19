@@ -25,7 +25,6 @@ export default class Observer {
   }
 
   fire() {
-
     if (this._toggle) {
       this._callbacks.forEach(callback => {
         callback();
